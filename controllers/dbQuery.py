@@ -26,38 +26,40 @@ class Query:
         if not isql:
             return render.index([], [], '')
 
+        try:
+            sql = isql.encode("utf-8");
 
-        sql = isql.encode("utf-8");
+            conn.select_db('mysql')
+            cursor = conn.cursor()
+            cursor.execute("SET NAMES 'utf8'")
+            cursor.execute(sql)
 
-        conn.select_db('mysql')
-        cursor = conn.cursor()
-        cursor.execute("SET NAMES 'utf8'")
-        cursor.execute(sql)
+            # 全部结果放在一个大的list
+            columnNames = []
 
-        # 全部结果放在一个大的list
-        columnNames = []
+            # 查询SQL的返回值属性list
+            for field in cursor.description:
+                columnNames.append(field[0])
 
-        # 查询SQL的返回值属性list
-        for field in cursor.description:
-            columnNames.append(field[0])
+            allResults = [];
+            # 查询数据结果集
+            res = cursor.fetchall()
+            for row in res:
+                tempRes = []
+                for r in row:
+                    tmp = r
+                    if r is not None and type(r) is datetime.datetime:
+                        tmp = datetime.datetime.strftime(r, '%Y-%m-%d %H:%M:%S')
+                    tempRes.append(tmp)
 
-        allResults = [];
-        # 查询数据结果集
-        res = cursor.fetchall()
-        for row in res:
-            tempRes = []
-            for r in row:
-                tmp = r
-                if r is not None and type(r) is datetime.datetime:
-                    tmp = datetime.datetime.strftime(r, '%Y-%m-%d %H:%M:%S')
-                tempRes.append(tmp)
+                allResults.append(tempRes)
 
-            allResults.append(tempRes)
+            conn.commit()
+            cursor.close()
 
-        conn.commit()
-        cursor.close()
-
-        return render.index(columnNames, allResults, sql)
+            return render.index(columnNames, allResults, sql)
+        except:
+            return render.index([], [], '')
 
 
 class Index:
