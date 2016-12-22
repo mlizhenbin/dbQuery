@@ -21,10 +21,13 @@ class Query:
 
     def POST(self):
         form = web.input()
-        sql = form['sql']
+        isql = form['sql']
 
-        if not sql:
+        if not isql:
             return render.index([], [], '')
+
+
+        sql = isql.encode("utf-8");
 
         conn.select_db('hello')
         cursor = conn.cursor()

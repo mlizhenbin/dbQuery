@@ -18,7 +18,7 @@ $def with(cols, results, sql)
 <div>
     <div class="box">
         <form id="doQuery" action="/query" method="post" name="form">
-            <textarea id="sql" name="sql" placeholder="查询SQL...">select * from todo;</textarea>
+            <textarea id="sql" name="sql" placeholder="查询SQL...">$sql</textarea>
             <p style="text-align:center;margin-right:12px">
                 <input type="button" onclick="query();" class=" btn btn-primary" value="查 询"/>
                 <input type="button" onclick="resetSql();" class="btn btn-primary" value="重 置"/>
