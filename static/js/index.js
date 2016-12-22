@@ -10,7 +10,7 @@ function resetSql() {
 function query() {
     var sql = $("#sql").val();
     if (!sql) {
-        $("#errorMsg").html('查詢SQL不能爲空！')
+        $("#errorMsg").html('查詢SQL不能为空！')
         return;
     }
     $("#doQuery").submit();
