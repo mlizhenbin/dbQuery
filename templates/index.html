@@ -30,7 +30,6 @@ $def with(cols, results, sql)
             <table  class="table-hover table"  border="1" bordercolor="#a0c6e5" style="border-collapse:collapse;width: auto">
                 <thead>
                 <tr style="background-color: #d59392;">
-                    <th style="text-align: center;">序号</th>
                     $for col in cols:
                         <th style="text-align: center;">$col</th>
                 </tr>
@@ -38,7 +37,6 @@ $def with(cols, results, sql)
                 <tbody>
                     $for result in results:
                         <tr>
-                            <td>$loop.index</td>
                             $for value in result:
                                 <td>$value</td>
                         </tr>
