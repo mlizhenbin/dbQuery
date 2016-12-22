@@ -29,7 +29,7 @@ class Query:
 
         sql = isql.encode("utf-8");
 
-        conn.select_db('hello')
+        conn.select_db('mysql')
         cursor = conn.cursor()
         cursor.execute("SET NAMES 'utf8'")
         cursor.execute(sql)
